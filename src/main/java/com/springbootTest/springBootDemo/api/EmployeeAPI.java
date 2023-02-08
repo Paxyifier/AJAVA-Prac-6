@@ -1,35 +1,51 @@
 package com.springbootTest.springBootDemo.api;
 
 import com.springbootTest.springBootDemo.model.Employee;
+import com.springbootTest.springBootDemo.service.EmployeeService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@RequestMapping("api/v1/employee")
 public class EmployeeAPI {
-    @GetMapping("api/v1/employee/{id}") //Get One
-    Employee getEmployee(@PathVariable("id")int id){
-        return new Employee();
-    }
-    @GetMapping("/employees") //Search
-    public List<Employee> getEmployeeByProperty(@RequestParam(value = "id", required=false) String id,
-                                                @RequestParam(value = "name", required=false) String name,
-                                                @RequestParam(value = "designation", required=false) String designation,
-                                                @RequestParam(value = "salary", required=false) int salary) {
-        return null;
-
-    }
-    @PostMapping("/api/v1/employee") //Create One
-    Employee createEmployee(@RequestBody Employee employee){
-        return null;
-    }
-    @PutMapping("api/v1/employee/{id}")  //Update One
-    Employee updateEmployee(@PathVariable("id") int id) {
-        return null;
+    public EmployeeService getEmployeeService() {
+        return employeeService;
     }
 
-    @DeleteMapping("api/v1/employee/{id}") //Delete One
-    Employee deleteEmployee(@PathVariable("id") int id) {
-        return null;
+    public void setEmployeeService(EmployeeService employeeService) {
+        this.employeeService = employeeService;
+    }
+
+    public EmployeeAPI(EmployeeService employeeService) {
+        this.employeeService = employeeService;
+    }
+
+    private EmployeeService employeeService;
+    @GetMapping("all") //Get All
+    ResponseEntity<List<Employee>> getAllEmployees(){
+        return new ResponseEntity<>(employeeService.getAllEmployees(),HttpStatus.OK);
+    }
+    @GetMapping("{id}") //Get One
+    ResponseEntity<Employee> getEmployee(@PathVariable("id")Long id){
+        return new ResponseEntity<>(employeeService.getEmployeeById(id), HttpStatus.OK);
+    }
+
+    @PostMapping() //Create One
+    ResponseEntity<Employee> createEmployee(@RequestBody Employee employee){
+        return new ResponseEntity<>(employeeService.createEmployee(employee), HttpStatus.CREATED);
+    }
+    @PutMapping("{id}")  //Update One
+    ResponseEntity<Employee> updateEmployee(@PathVariable("id") Long id, @RequestBody Employee e) {
+        e.setId(id);
+        return new ResponseEntity<>(employeeService.updateEmployee(e), HttpStatus.OK);
+    }
+
+    @DeleteMapping("{id}") //Delete One
+    ResponseEntity<String> deleteEmployee(@PathVariable("id") Long id) {
+        employeeService.deleteEmployee(id);
+        return new ResponseEntity<>("User successfully deleted!", HttpStatus.OK);
     }
 }

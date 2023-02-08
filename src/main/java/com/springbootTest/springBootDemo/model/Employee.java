@@ -3,13 +3,13 @@ package com.springbootTest.springBootDemo.model;
 import jakarta.persistence.*;
 
 @Entity
+@Table(name="employee")
 public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id", nullable = false)
     private Long id;
     private String name;
-    private String department;
     private Double salary;
 
     public Long getId() {
@@ -20,14 +20,6 @@ public class Employee {
         this.id = id;
     }
 
-//    public int getId() {
-//        return id;
-//    }
-//
-//    public void setId(int id) {
-//        this.id = id;
-//    }
-
     public String getName() {
         return name;
     }
@@ -36,13 +28,6 @@ public class Employee {
         this.name = name;
     }
 
-    public String getDepartment() {
-        return department;
-    }
-
-    public void setDepartment(String department) {
-        this.department = department;
-    }
 
     public Double getSalary() {
         return salary;
@@ -55,10 +40,9 @@ public class Employee {
     public Employee() {
     }
 
-//    public Employee(int id, String name, String department, Double salary) {
-//        this.id = id;
-//        this.name = name;
-//        this.department = department;
-//        this.salary = salary;
-//    }
+    public Employee(Long id, String name, Double salary) {
+        this.id = id;
+        this.name = name;
+        this.salary = salary;
+    }
 }
