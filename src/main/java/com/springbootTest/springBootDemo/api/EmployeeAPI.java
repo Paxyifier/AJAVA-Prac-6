@@ -1,6 +1,6 @@
 package com.springbootTest.springBootDemo.api;
 
-import com.springbootTest.springBootDemo.dao.EmployeeService;
+import com.springbootTest.springBootDemo.service.EmployeeService;
 import com.springbootTest.springBootDemo.model.Employee;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,18 +10,15 @@ import java.util.List;
 @RestController
 @RequestMapping("api/v1/employee")
 public class EmployeeAPI {
+    private final EmployeeService employeeService;
     public EmployeeService getEmployeeDAO() {
         return employeeService;
     }
-
-
     public EmployeeAPI(EmployeeService employeeService) {
         this.employeeService = employeeService;
     }
-    private final EmployeeService employeeService;
     @GetMapping("all") //Get All
     ResponseEntity<List<Employee>> getAllEmployees(){
-
         return new ResponseEntity<>(employeeService.getEmployees(),HttpStatus.OK);
     }
     @GetMapping("{id}") //Get One

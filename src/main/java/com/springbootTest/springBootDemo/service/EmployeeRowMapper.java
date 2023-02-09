@@ -1,4 +1,4 @@
-package com.springbootTest.springBootDemo.dao;
+package com.springbootTest.springBootDemo.service;
 import com.springbootTest.springBootDemo.model.Employee;
 import org.springframework.jdbc.core.RowMapper;
 
