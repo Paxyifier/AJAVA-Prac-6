@@ -1,13 +1,6 @@
 package com.springbootTest.springBootDemo.model;
 
-import jakarta.persistence.*;
-
-@Entity
-@Table(name="employee")
 public class Employee {
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "id", nullable = false)
     private Long id;
     private String name;
     private Double salary;
