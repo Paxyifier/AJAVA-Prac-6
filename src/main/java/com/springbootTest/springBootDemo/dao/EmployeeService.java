@@ -1,14 +1,17 @@
 package com.springbootTest.springBootDemo.dao;
 
 import com.springbootTest.springBootDemo.model.Employee;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
-
-public class EmployeeDAO {
+@Service
+public class EmployeeService {
+    @Autowired
     JdbcTemplate jdbcTemplate;
 
-    public EmployeeDAO(JdbcTemplate jdbcTemplate) {
+    public EmployeeService(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 
@@ -16,7 +19,7 @@ public class EmployeeDAO {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public EmployeeDAO() {
+    public EmployeeService() {
     }
 
     public JdbcTemplate getJdbcTemplate() {
